@@ -48,3 +48,29 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
   .header-inner{padding:.5rem 0}
   .logo img{height:40px}
 }
+
+/* Tablet: two-column layout where left aside stacks above the form */
+@media (min-width:801px) and (max-width:1100px){
+  .contact-grid{grid-template-columns:1fr 320px;align-items:start}
+  .contact-grid > .left{grid-column:1 / -1}
+  .contact-page-section{padding:3rem 0}
+  .contact-page h1{font-size:2.1rem}
+  .hero-images{display:none}
+}
+
+/* Mobile improvements: touch targets, readable text and full-width map */
+@media (max-width:480px){
+  .container{padding:0.75rem}
+  .hero h1{font-size:1.6rem}
+  .btn{padding:.85rem 1.25rem;border-radius:8px}
+  .contact-form{padding:1.25rem}
+  .contact-form input,.contact-form textarea{padding:.9rem;font-size:1rem}
+  .contact-info{padding:1.25rem}
+  .map-placeholder{height:240px}
+  .image-frame img{max-width:180px;height:140px}
+  .main-nav a{margin-left:.5rem;font-size:.95rem}
+}
+
+/* Ensure images and iframes scale nicely */
+img, iframe{max-width:100%;height:auto}
+
