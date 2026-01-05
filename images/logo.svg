@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160" height="48" viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="JYC logo">
+  <rect width="160" height="48" rx="8" fill="#082040" />
+  <text x="16" y="34" font-family="Segoe UI, Roboto, Arial" font-size="22" fill="#ffffff" font-weight="700">JYC</text>
+  <text x="72" y="32" font-family="Segoe UI, Roboto, Arial" font-size="12" fill="#9fc7ff">Transports</text>
+</svg>

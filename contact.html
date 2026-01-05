@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us — JYC Mini Truck Transport</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img src="images/logo.svg" alt="JYC Logo" />
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contact-page-section">
+    <div class="contact-overlay"></div>
+    <div class="container contact-page">
+    <h1>Contact Us</h1>
+    <p>Questions, bookings or quotes — send us a message or call.</p>
+
+     
+    <div class="contact-grid">
+      <aside class="contact-info left">
+        <h2>Pricing</h2>
+        <p>Blantyre COB = MWK70,000</p>
+        <p>Outside Blantyre COB = MWK2000/km</p>
+        <h3>Service Areas</h3>
+        <p>Blantyre Center • Surrounding suburbs • All districts nation wide</p>
+      </aside>
+
+      <form id="contactForm" class="contact-form" novalidate>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+        
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" placeholder="+265 ... ... ..." required>
+
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="Tell us about your shipment" required></textarea>
+
+        <button class="btn primary" type="submit">Send Message</button>
+
+        <div id="formStatus" role="status" aria-live="polite" style="margin-top:.5rem;color:var(--muted)"></div>
+      </form>
+
+      <aside class="contact-info">
+        <h2>Reach Us</h2>
+        <p><strong>Phone:</strong> +265 888 106 989</p>
+        <p><strong>Email:</strong> medi.fatsani@gmail.com</p>
+        <p><strong>Address:</strong> Chimtengo Street, 
+            Nkolokosa,
+            Blantyre,
+            Malawi</p>
+
+        <h3>Operating Hours</h3>
+        <p>Mon–Sun: 07:00 — 23:00</p>
+        
+
+        <h3>Visit Us</h3>
+        <div id="map" class="map-placeholder">Locating map…</div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 JYC Transports — Mini Truck Specialists</p>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      status.textContent = 'Sending...';
+
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        message: form.message.value
+      };
+
+      try {
+        const res = await fetch('/.netlify/functions/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const json = await res.json();
+        if (res.ok && json.success) {
+          status.style.color = 'green';
+          status.textContent = json.message || 'Message sent — thank you!';
+          form.reset();
+        } else {
+          status.style.color = '#b91c1c';
+          status.textContent = (json && json.error) ? json.error : 'Failed to send message';
+        }
+      } catch (err) {
+        status.style.color = '#b91c1c';
+        status.textContent = 'Network error — please try again later.';
+        console.error(err);
+      }
+    });
+  })();
+  </script>
+
+  <script>
+  // Request user's location and embed a Google Maps iframe into #map
+  (function(){
+    const mapEl = document.getElementById('map');
+    if (!mapEl) return;
+
+    function showFallback(text){
+      mapEl.textContent = text;
+    }
+
+    function embedMap(lat, lon){
+      const src = `https://www.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      mapEl.textContent = '';
+      mapEl.appendChild(iframe);
+    }
+
+    if (!navigator.geolocation){
+      showFallback('Geolocation not supported by your browser.');
+      return;
+    }
+
+    mapEl.textContent = 'Requesting your location…';
+    navigator.geolocation.getCurrentPosition(function(pos){
+      const lat = pos.coords.latitude.toFixed(6);
+      const lon = pos.coords.longitude.toFixed(6);
+      embedMap(lat, lon);
+    }, function(err){
+      console.warn('Geolocation error', err);
+      showFallback('Unable to get location — permission denied or unavailable.');
+      // provide a link to open maps centered at Malawi (fallback)
+      const a = document.createElement('a');
+      a.href = 'https://www.google.com/maps/place/Blantyre,+Malawi';
+      a.textContent = 'Open Blantyre on maps';
+      a.target = '_blank';
+      a.style.display = 'block';
+      a.style.marginTop = '0.5rem';
+      mapEl.appendChild(a);
+    }, {enableHighAccuracy:true, timeout:10000, maximumAge:0});
+  })();
+  </script>
+</body>
+</html>

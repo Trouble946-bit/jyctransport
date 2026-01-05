@@ -1,0 +1,15 @@
+At line:1 char:39
++ "terminal.integrated.profiles.windows": {
++                                       ~
+Unexpected token ':' in expression or statement.
+At line:2 char:22
++   "PowerShell (pwsh)": {
++                      ~
+Unexpected token ':' in expression or statement.
+At line:3 char:11
++     "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
++           ~
+Unexpected token ':' in expression or statement.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : UnexpectedToken
+    
