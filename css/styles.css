@@ -15,9 +15,10 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
 .hero-inner{max-width:650px}
 .hero h1{font-size:2.1rem;margin:0 0 .5rem}
 .lead{opacity:0.95}
+.hero-cta-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1rem}
 .btn{display:inline-block;padding:.65rem 1rem;border-radius:6px;text-decoration:none;border:none;cursor:pointer}
 .btn.primary{background:var(--accent);color:var(--white);font-weight:700}
-.hero-images{position:absolute;right:3rem;bottom:2rem;display:none}
+.hero-images{display:none}
 .image-frame{background:linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);padding:8px;border-radius:12px;box-shadow:0 12px 32px rgba(102,126,234,0.4);transform:rotate(5deg);transition:transform 0.3s ease,box-shadow 0.3s ease}
 .image-frame:hover{transform:rotate(5deg) translateY(-6px) scale(1.02);box-shadow:0 16px 40px rgba(102,126,234,0.5)}
 .image-frame img{display:block;width:100%;height:auto;object-fit:cover;max-width:320px;height:240px;border-radius:8px}
@@ -57,16 +58,17 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
   .contact-page h1{font-size:2.1rem}
 }
 
-/* Show hero image on medium and larger desktops */
+/* Show hero image on medium and larger desktops - positioned absolutely */
 @media (min-width:1200px){
-  .hero-images{display:block}
+  .hero-images{position:absolute;right:3rem;bottom:2rem;display:block}
+  .hero-cta-row{justify-content:flex-start}
 }
 
-/* Mobile: show smaller image in flow */
+/* Mobile and tablet: show smaller image next to button */
 @media (max-width:1199px){
-  .hero-images{position:static;display:block;margin-top:1.5rem;text-align:center}
-  .image-frame{display:inline-block;transform:rotate(3deg);max-width:200px}
-  .image-frame img{max-width:200px;height:150px}
+  .hero-images{display:block}
+  .image-frame{transform:rotate(3deg);max-width:140px}
+  .image-frame img{max-width:140px;height:105px}
 }
 
 /* Mobile improvements: touch targets, readable text and full-width map */
