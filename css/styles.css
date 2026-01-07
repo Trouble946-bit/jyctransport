@@ -58,6 +58,11 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
   .hero-images{display:none}
 }
 
+/* Hide hero images on mobile to prevent overlap */
+@media (max-width:800px){
+  .hero-images{display:none}
+}
+
 /* Mobile improvements: touch targets, readable text and full-width map */
 @media (max-width:480px){
   .container{padding:0.75rem}
