@@ -17,7 +17,7 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
 .lead{opacity:0.95}
 .btn{display:inline-block;padding:.65rem 1rem;border-radius:6px;text-decoration:none;border:none;cursor:pointer}
 .btn.primary{background:var(--accent);color:var(--white);font-weight:700}
-.hero-images{position:absolute;right:1rem;bottom:0;display:flex;gap:1.5rem;align-items:flex-end}
+.hero-images{position:absolute;right:1rem;bottom:0;display:none;gap:1.5rem;align-items:flex-end}
 .image-frame{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 8px 24px rgba(3,10,30,0.3);transition:transform 0.3s ease,box-shadow 0.3s ease}
 .image-frame:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(3,10,30,0.4)}
 .image-frame img{display:block;width:100%;height:auto;object-fit:cover;max-width:280px;height:200px}
@@ -55,12 +55,11 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
   .contact-grid > .left{grid-column:1 / -1}
   .contact-page-section{padding:3rem 0}
   .contact-page h1{font-size:2.1rem}
-  .hero-images{display:none}
 }
 
-/* Hide hero images on mobile to prevent overlap */
-@media (max-width:800px){
-  .hero-images{display:none}
+/* Show hero images only on large desktops where there's enough space */
+@media (min-width:1300px){
+  .hero-images{display:flex}
 }
 
 /* Mobile improvements: touch targets, readable text and full-width map */
