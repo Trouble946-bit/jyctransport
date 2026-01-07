@@ -62,6 +62,13 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
   .hero-images{display:block}
 }
 
+/* Mobile: show smaller image in flow */
+@media (max-width:1199px){
+  .hero-images{position:static;display:block;margin-top:1.5rem;text-align:center}
+  .image-frame{display:inline-block;transform:rotate(3deg);max-width:200px}
+  .image-frame img{max-width:200px;height:150px}
+}
+
 /* Mobile improvements: touch targets, readable text and full-width map */
 @media (max-width:480px){
   .container{padding:0.75rem}
@@ -71,8 +78,9 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
   .contact-form input,.contact-form textarea{padding:.9rem;font-size:1rem}
   .contact-info{padding:1.25rem}
   .map-placeholder{height:240px}
-  .image-frame img{max-width:180px;height:140px}
   .main-nav a{margin-left:.5rem;font-size:.95rem}
+  .image-frame{max-width:160px}
+  .image-frame img{max-width:160px;height:120px}
 }
 
 /* Ensure images and iframes scale nicely */
