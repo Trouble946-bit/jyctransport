@@ -35,7 +35,7 @@
         <p>Blantyre Center • Surrounding suburbs • All districts nation wide</p>
       </aside>
 
-      <form id="contactForm" class="contact-form" novalidate>
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Your name" required>
 
@@ -81,42 +81,20 @@
   </footer>
 
   <script>
+  // Formspree handles form submission - show confirmation message
   (function(){
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
+    
+    // Check if form was just submitted (Formspree redirects back with query param)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('submit') === 'success') {
+      status.style.color = 'green';
+      status.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+    }
 
-    form.addEventListener('submit', async (ev) => {
-      ev.preventDefault();
+    form.addEventListener('submit', function() {
       status.textContent = 'Sending...';
-
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone.value,
-        message: form.message.value
-      };
-
-      try {
-        const res = await fetch('/.netlify/functions/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        const json = await res.json();
-        if (res.ok && json.success) {
-          status.style.color = 'green';
-          status.textContent = json.message || 'Message sent — thank you!';
-          form.reset();
-        } else {
-          status.style.color = '#b91c1c';
-          status.textContent = (json && json.error) ? json.error : 'Failed to send message';
-        }
-      } catch (err) {
-        status.style.color = '#b91c1c';
-        status.textContent = 'Network error — please try again later.';
-        console.error(err);
-      }
     });
   })();
   </script>
