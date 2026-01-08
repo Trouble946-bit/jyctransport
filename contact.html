@@ -35,7 +35,7 @@
         <p>Blantyre Center • Surrounding suburbs • All districts nation wide</p>
       </aside>
 
-      <form id="contactForm" class="contact-form" action="https://formspree.io/f/xzdznkjl" method="POST">
+      <form id="contactForm" class="contact-form">
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Your name" required>
 
@@ -56,7 +56,7 @@
 
       <aside class="contact-info">
         <h2>Reach Us</h2>
-        <p><strong>Phone:</strong> +265 888 106 989</p>
+        <p><strong>Phone:</strong> +265 999 920 939</p>
         <p><strong>Email:</strong> stanley.mwale600@gmail.com</p>
         <p><strong>Address:</strong> Kwhesi street, 
             Manja,
@@ -81,20 +81,45 @@
   </footer>
 
   <script>
-  // Formspree handles form submission - show confirmation message
+  // Handle form submission via Netlify function
   (function(){
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
-    
-    // Check if form was just submitted (Formspree redirects back with query param)
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('submit') === 'success') {
-      status.style.color = 'green';
-      status.textContent = 'Message sent successfully! We\'ll get back to you soon.';
-    }
 
-    form.addEventListener('submit', function() {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
       status.textContent = 'Sending...';
+      status.style.color = 'var(--muted)';
+
+      const formData = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        message: form.message.value
+      };
+
+      try {
+        const response = await fetch('/.netlify/functions/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+          status.style.color = 'green';
+          status.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+          form.reset();
+        } else {
+          status.style.color = 'red';
+          status.textContent = result.error || 'Failed to send message. Please try again.';
+        }
+      } catch (err) {
+        status.style.color = 'red';
+        status.textContent = 'Network error. Please try again later.';
+        console.error('Form submission error:', err);
+      }
     });
   })();
   </script>

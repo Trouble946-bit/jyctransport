@@ -31,15 +31,21 @@ exports.handler = async function(event, context) {
     tls: { rejectUnauthorized: process.env.EMAIL_TLS_STRICT === 'true' }
   });
 
-  // Send email (non-blocking failures handled)
+  // Send email to multiple recipients (non-blocking failures handled)
+  const recipients = [
+    'stanley.mwale600@gmail.com',
+    'lcmwale69@gmail.com',
+    'medi.fatsani@gmail.com'
+  ].join(', ');
+
   try {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER,
+      to: recipients,
       subject: `New Contact from ${name}`,
       html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Phone:</strong> ${phone || 'N/A'}</p><p><strong>Message:</strong></p><p>${(message||'').replace(/\n/g,'<br>')}</p>`
     });
-    console.log('Email sent');
+    console.log('Email sent to multiple recipients');
   } catch (err) {
     console.error('Email send failed', err && err.message);
   }
