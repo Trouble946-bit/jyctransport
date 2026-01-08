@@ -35,7 +35,7 @@
         <p>Blantyre Center • Surrounding suburbs • All districts nation wide</p>
       </aside>
 
-      <form id="contactForm" class="contact-form">
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/xzdznkjl" method="POST">
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Your name" required>
 
@@ -81,45 +81,20 @@
   </footer>
 
   <script>
-  // Handle form submission via Netlify function
+  // Formspree handles form submission - show confirmation message
   (function(){
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
+    
+    // Check if form was just submitted (Formspree redirects back with query param)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('submit') === 'success') {
+      status.style.color = 'green';
+      status.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+    }
 
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    form.addEventListener('submit', function() {
       status.textContent = 'Sending...';
-      status.style.color = 'var(--muted)';
-
-      const formData = {
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone.value,
-        message: form.message.value
-      };
-
-      try {
-        const response = await fetch('/.netlify/functions/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-          status.style.color = 'green';
-          status.textContent = 'Message sent successfully! We\'ll get back to you soon.';
-          form.reset();
-        } else {
-          status.style.color = 'red';
-          status.textContent = result.error || 'Failed to send message. Please try again.';
-        }
-      } catch (err) {
-        status.style.color = 'red';
-        status.textContent = 'Network error. Please try again later.';
-        console.error('Form submission error:', err);
-      }
     });
   })();
   </script>
