@@ -43,49 +43,26 @@ body{font-family:Segoe UI, Roboto, Arial, sans-serif;margin:0;background:var(--b
 .contact-info p{color:#333}
 .map-placeholder{height:180px;background:linear-gradient(90deg,#e9eef8,#f7fbff);display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted)}
 .map-placeholder iframe{width:100%;height:100%;border:0;border-radius:6px}
+img, iframe{max-width:100%;height:auto}
+
+/* Sponsored Ad Banner */
+.sponsor-ad{padding:2rem 0}
+.ad-banner{background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:12px;padding:1.5rem;box-shadow:0 8px 24px rgba(102,126,234,0.3);position:relative;overflow:hidden}
+.ad-banner::before{content:'';position:absolute;top:-50%;right:-10%;width:300px;height:300px;background:radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);border-radius:50%}
+.ad-label{color:rgba(255,255,255,0.7);font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;margin:0 0 0.5rem;font-weight:600}
+.ad-content{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;text-decoration:none;color:var(--white);position:relative;z-index:1}
+.ad-logo{height:60px;width:auto;object-fit:contain;margin-right:1rem;background:white;padding:0.5rem;border-radius:8px;flex-shrink:0}
+.ad-content:hover .ad-cta{transform:translateX(4px)}
+.ad-text h3{margin:0 0 0.5rem;font-size:1.4rem;color:var(--white)}
+.ad-text p{margin:0;color:rgba(255,255,255,0.9);font-size:0.95rem}
+.ad-cta{background:rgba(255,255,255,0.2);padding:0.75rem 1.25rem;border-radius:6px;font-weight:700;white-space:nowrap;transition:transform 0.3s ease, background 0.3s ease;backdrop-filter:blur(10px)}
+.ad-cta:hover{background:rgba(255,255,255,0.3)}
+
 @media(max-width:800px){
   .contact-grid{grid-template-columns:1fr}
   .contact-page-section{min-height:auto;padding:2rem 0}
   .contact-page h1{font-size:1.8rem}
   .header-inner{padding:.5rem 0}
-  .logo img{height:40px}
+  .ad-content{flex-direction:column;align-items:flex-start;text-align:left}
+  .ad-cta{align-self:stretch;text-align:center}
 }
-
-/* Tablet: two-column layout where left aside stacks above the form */
-@media (min-width:801px) and (max-width:1100px){
-  .contact-grid{grid-template-columns:1fr 320px;align-items:start}
-  .contact-grid > .left{grid-column:1 / -1}
-  .contact-page-section{padding:3rem 0}
-  .contact-page h1{font-size:2.1rem}
-}
-
-/* Show hero image on medium and larger desktops - positioned absolutely */
-@media (min-width:1200px){
-  .hero-images{position:absolute;right:3rem;bottom:2rem;display:block}
-  .hero-cta-row{justify-content:flex-start}
-}
-
-/* Mobile and tablet: show smaller image next to button */
-@media (max-width:1199px){
-  .hero-images{display:block}
-  .image-frame{transform:rotate(3deg);max-width:140px}
-  .image-frame img{max-width:140px;height:105px}
-}
-
-/* Mobile improvements: touch targets, readable text and full-width map */
-@media (max-width:480px){
-  .container{padding:0.75rem}
-  .hero h1{font-size:1.6rem}
-  .btn{padding:.85rem 1.25rem;border-radius:8px}
-  .contact-form{padding:1.25rem}
-  .contact-form input,.contact-form textarea{padding:.9rem;font-size:1rem}
-  .contact-info{padding:1.25rem}
-  .map-placeholder{height:240px}
-  .main-nav a{margin-left:.5rem;font-size:.95rem}
-  .image-frame{max-width:160px}
-  .image-frame img{max-width:160px;height:120px}
-}
-
-/* Ensure images and iframes scale nicely */
-img, iframe{max-width:100%;height:auto}
-
